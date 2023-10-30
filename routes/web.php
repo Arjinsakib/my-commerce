@@ -26,8 +26,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[MyCommerceController::class,'index'])->name('home');
 Route::get('/product-category/{id}',[MyCommerceController::class,'category'])->name('product-category');
 Route::get('/product-detail/{id}',[MyCommerceController::class,'detail'])->name('product-detail');
-Route::get('/show-cart',[CartController::class,'index'])->name('show-cart');
+Route::post('/add-to-cart/{id}',[CartController::class,'index'])->name('add-to-cart');
+Route::get('/show-cart',[CartController::class,'show'])->name('show-cart');
+Route::post('/update-cart-product{id}',[CartController::class,'update'])->name('update-cart-product');
+Route::get('/remove-cart-product/{id}',[CartController::class,'remove'])->name('remove-cart-product');
 Route::get('/checkout',[CheckoutController::class,'index'])->name('checkout');
+Route::post('/new-cash-order',[CheckoutController::class,'newCashOrder'])->name('new-cash-order');
+Route::get('/complete-order',[CheckoutController::class,'completeOrder'])->name('complete-order');
 
 
 Route::middleware([ 'auth:sanctum',config('jetstream.auth_session'),'verified',])->group(function () {
