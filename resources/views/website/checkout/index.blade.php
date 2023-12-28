@@ -16,7 +16,9 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
+                        <li><a href="javascript:void(0)">Product Category</a></li>
+                        <li>Product Detail</li>
+                        <li>Show Cart</li>
                         <li>checkout</li>
                     </ul>
                 </div>
@@ -43,7 +45,12 @@
                                             <div class="single-form form-default">
                                                 <label>Full Name</label>
                                                 <div class="col-md-12 form-input form">
+                                                    @if (isset($customer->id))
+                                                    <input type="text" required name="name" value="{{$customer->name}}" readonly placeholder="Full Name"/>
+                                                    @else
                                                     <input type="text" required name="name" placeholder="Full Name"/>
+                                                    <span class="text-danger">{{$errors->has('name') ? $error->first('name') : ''}}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -51,7 +58,15 @@
                                             <div class="single-form form-default">
                                                 <label>Email Address</label>
                                                 <div class="form-input form">
-                                                    <input type="email" required name="email" placeholder="Email Address"/>
+                                                    @if(isset($customer->id))
+                                                    <input type="email" required name="email" value="{{$customer->email}}" readonly placeholder="Email Address"/>
+                                                    @else
+                                                    <input type="email" required name="email" onblur="checkCustomerEmail(this.value)" placeholder="Email Address"/>
+                                                    <span class="text-danger" id="emailError"></span>
+                                                    @endif
+                                                    @error('email')
+                                                    <span class="text-danger" id="emailError">{{$message}}</span>
+                                                    @enderror
                                                 </div>
                                             </div>
                                         </div>
@@ -59,7 +74,12 @@
                                             <div class="single-form form-default">
                                                 <label>Phone Number</label>
                                                 <div class="form-input form">
+                                                    @if(isset($customer->id))
+                                                    <input type="number" required name="mobile" value="{{$customer->mobile}}" readonly placeholder="Phone Address"/>
+                                                    @else
                                                     <input type="number" required name="mobile" placeholder="Phone Number"/>
+                                                    <span class="text-danger">{{$errors->has('mobile') ? $error->first('mobile') : ''}}</span>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </div>
@@ -68,6 +88,7 @@
                                                 <label>Delivery Address</label>
                                                 <div class="form-input form">
                                                     <textarea name="delivery_address" placeholder="Order Delivery Address" style="padding-top: 100px"></textarea>
+                                                    <span class="text-danger">{{$errors->has('delivery_address') ? $error->first('delivery_address') : ''}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -88,103 +109,101 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="single-form button">
-                                                <button type="submit" class="btn">Confirm Order</button>
+                                                <button type="submit" class="btn" id="confirmOrderBtn">Confirm Order</button>
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
-                            <div class="tab-pane fade show" id="online">
+                            <div class="tab-pane fade show px-3" id="online">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="single-form form-default">
-                                            <label>User Name</label>
-                                            <div class="row">
-                                                <div class="col-md-6 form-input form">
-                                                    <input type="text" placeholder="First Name">
+                                    <form action="{{ url('/pay') }}" method="POST" class="needs-validation">
+                                        <input type="hidden" value="{{ csrf_token() }}" name="_token" />
+                                        <div class="row">
+                                            <div class="col-md-12 mb-3">
+                                                <label for="firstName">Full name</label>
+                                                <input type="text" name="name" class="form-control" id="customer_name" placeholder="Your Name" required>
+                                                <div class="invalid-feedback">
+                                                    Valid customer name is required.
                                                 </div>
-                                                <div class="col-md-6 form-input form">
-                                                    <input type="text" placeholder="Last Name">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="mobile">Mobile</label>
+                                            <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text">+88</span>
+                                                </div>
+                                                <input type="number" name="mobile" class="form-control" id="mobile" placeholder="Mobile" required>
+                                                <div class="invalid-feedback" style="width: 100%;">
+                                                    Your Mobile number is required.
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Email Address</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Email Address">
+
+                                        <div class="mb-3">
+                                            <label for="email">Email</label>
+                                            <input type="email" name="email" class="form-control" id="email" placeholder="you@example.com" required>
+                                            <div class="invalid-feedback">
+                                                Please enter a valid email address for shipping updates.
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Phone Number</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Phone Number">
+
+                                        <div class="mb-3">
+                                            <label for="address">Address</label>
+                                            <textarea class="form-control" id="address" name="delivery_address" placeholder="Delivery Address" required></textarea>
+                                            <div class="invalid-feedback">
+                                                Please enter your shipping address.
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="single-form form-default">
-                                            <label>Mailing Address</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Mailing Address">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>City</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="City">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Post Code</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Post Code">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Country</label>
-                                            <div class="form-input form">
-                                                <input type="text" placeholder="Country">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="single-form form-default">
-                                            <label>Region/State</label>
-                                            <div class="select-items">
-                                                <select class="form-control">
-                                                    <option value="0">select</option>
-                                                    <option value="1">select option 01</option>
-                                                    <option value="2">select option 02</option>
-                                                    <option value="3">select option 03</option>
-                                                    <option value="4">select option 04</option>
-                                                    <option value="5">select option 05</option>
+
+                                        <div class="row">
+                                            <div class="col-md-5 mb-3">
+                                                <label for="country">Country</label>
+                                                <select class="custom-select d-block w-100 form-control" id="country" required>
+                                                    <option value="">Choose...</option>
+                                                    <option value="Bangladesh">Bangladesh</option>
                                                 </select>
+                                                <div class="invalid-feedback">
+                                                    Please select a valid country.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <label for="state">State</label>
+                                                <select class="custom-select d-block w-100 form-control" id="state" required>
+                                                    <option value="">Choose...</option>
+                                                    <option value="Dhaka">Dhaka</option>
+                                                </select>
+                                                <div class="invalid-feedback">
+                                                    Please provide a valid state.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3 mb-3">
+                                                <label for="zip">Zip</label>
+                                                <input type="text" class="form-control" id="zip" placeholder="" required>
+                                                <div class="invalid-feedback">
+                                                    Zip code required.
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="single-form form-default">
+                                                    <label>Payment Type</label>
+                                                    <div class="">
+                                                        <label><input type="radio" checked name="payment_type" value="2">Online</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="single-checkbox checkbox-style-3">
+                                                    <input type="checkbox" id="checkbox-33" checked >
+                                                    <label for="checkbox-33"><span></span></label>
+                                                    <p>I accept all terms & condition</p>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="single-checkbox checkbox-style-3">
-                                            <input type="checkbox" id="checkbox-3">
-                                            <label for="checkbox-3"><span></span></label>
-                                            <p>My delivery and mailing addresses are the same.</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="single-form button">
-                                            <button class="btn" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">next
-                                                step</button>
-                                        </div>
-                                    </div>
+                                        <button class="btn btn-primary btn-block" type="submit">Continue to checkout</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>

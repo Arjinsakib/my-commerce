@@ -26,7 +26,7 @@
 
             <ul class="navbar-nav my-lg-0">
                 <li class="nav-item dropdown u-pro">
-                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{asset('/')}}admin/assets/images/users/1.jpg" alt="user" class=""> <span class="hidden-md-down">Mark &nbsp;<i class="fa fa-angle-down"></i></span> </a>
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark profile-pic" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="" alt="user" class=""> <span class="hidden-md-down">Mark &nbsp;<i class="fa fa-angle-down"></i></span> </a>
                     <div class="dropdown-menu dropdown-menu-end animated flipInY">
 
                         <a href="javascript:void(0)" class="dropdown-item"><i class="ti-user"></i> My Profile</a>

@@ -10,7 +10,7 @@ class Category extends Model
 {
     use HasFactory;
 
-    private static $category, $image, $imageName, $directory, $imageUrl;
+    private static $name, $category, $image, $imageName, $directory, $imageUrl;
 
     protected $fillable = ['name', 'description', 'image', 'status'];
 
@@ -70,5 +70,9 @@ class Category extends Model
     public function subCategories()
     {
         return $this->hasMany(SubCategory::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

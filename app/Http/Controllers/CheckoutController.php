@@ -11,47 +11,67 @@ use ShoppingCart;
 
 class CheckoutController extends Controller
 {
-    private $customer, $order, $orderDetail;
+    private $customer, $order, $orderDetail, $email;
 
     public function index()
     {
-        return view('website.checkout.index');
+        if(Session::get('customer_id'))
+        {
+            $this->customer = Customer::find(Session::get('customer_id'));
+        }
+        else
+        {
+            $this->customer = '';
+        }
+        return view('website.checkout.index',['customer' => $this->customer]);
+    }
+    public function checkCustomerEmail()
+    {
+        $this->email = $_GET['email'];
+        $this->customer = Customer::where('email',$this->email)->frist();
+        if($this->customer)
+        {
+            return response()->json([
+                'success' => false,
+                'message' => "Email Address Already Exist"
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => "Email Address Available"
+        ]);
+
+        return response()->json($this->email);
+    }
+
+    private function orderCustomerValidate($request)
+    {
+        // $this->validate($request,[
+        //     'name'             => 'required',
+        //     'email'            => 'required|unique:customer,email',
+        //     'mobile'           => 'required|unique:customer,mobile',
+        //     'delivery_address' => 'required',
+        // ]);
     }
 
     public function newCashOrder(Request $request)
     {
-        $this->customer = new Customer();
-        $this->customer->name     = $request->name;
-        $this->customer->email    = $request->email;
-        $this->customer->mobile   = $request->mobile;
-        $this->customer->password = bcrypt($request->mobile);
-        $this->customer->save();
-
-
-        $this->order = new Order();
-        $this->order->customer_id      = $this->customer->id;
-        $this->order->order_date       = date('Y-m-d');
-        $this->order->order_timestap   = strtotime('Y-m-d');
-        $this->order->order_total      = Session::get('order_total');
-        $this->order->tax_total        = Session::get('tax_total');
-        $this->order->shipping_total   = Session::get('shipping_total');
-        $this->order->delivery_address = $request->delivery_address;
-        $this->order->payment_type     = $request->payment_type;
-        $this->order->save();
-
-
-        foreach(ShoppingCart::all() as $item)
+        if(Session::get('customer_id'))
         {
-            $this->orderDetail  = new OrderDetail();
-            $this->orderDetail->order_id      = $this->order->id;
-            $this->orderDetail->product_id    = $item->id;
-            $this->orderDetail->product_name  = $item->name;
-            $this->orderDetail->product_price = $item->price;
-            $this->orderDetail->product_qty   = $item->qty;
-            $this->orderDetail->save();
+            $this->customer = Customer::find(Session::get('customer_id'));
+        }
+        else
+        {
+            $this->orderCustomerValidate($request);
+            $this->customer = Customer::newCustomer($request);
+            Session::put('customer_id', $this->customer->id);
+            Session::put('customer_name', $this->customer->name);
         }
 
-        return redirect('/complete-order')->with('notification','Congratulation ... Your order info post successfully. Please wait, we will contact with you soon.');
+        $this->order = Order::newOrder($request, $this->customer->id);
+        OrderDetail::newOrderDetail($this->order->id);
+        return redirect('/home')->with('notification','Congratulation ... Your order info post successfully. Please wait, we will contact with you soon.');
 
 
     }
@@ -59,5 +79,10 @@ class CheckoutController extends Controller
     public function completeOrder()
     {
         return view('website.checkout.complete-order');
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
     }
 }

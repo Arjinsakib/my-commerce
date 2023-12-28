@@ -25,18 +25,29 @@
                 </div>
                 <div class="col-lg-9 col-md-6 col-12">
                     <div class="top-end">
+                        @if (Session::get('customer_id'))
                         <div class="user">
                             <i class="lni lni-user"></i>
-                            Hello
+                            Hello {{Session::get('customer_name')}}
+                            <ul class="user-login">
+                                <li>
+                                    <a href="{{route('customer.dashboard')}}">Dashboard</a>
+                                </li>
+                                <li>
+                                    <a href="{{route('customer.logout') }}">Logout</a>
+                                </li>
+                            </ul>
                         </div>
+                        @else
                         <ul class="user-login">
                             <li>
-                                <a href="login.html">Sign In</a>
+                                <a href="{{route('customer.login')}}">Sign In</a>
                             </li>
                             <li>
-                                <a href="register.html">Register</a>
+                                <a href="{{route('customer.register')}}">Register</a>
                             </li>
                         </ul>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -69,7 +80,7 @@
                                 </div>
                             </div>
                             <div class="search-input" >
-                                <input type="text" placeholder="Search">
+                                <input type="text" placeholder="Search" id="searchInput">
                             </div>
                             <div class="search-btn">
                                 <button><i class="lni lni-search-alt"></i></button>
@@ -163,7 +174,7 @@
                                 </a>
                                 <ul class="inner-sub-category">
                                     @foreach ($category->subCategories as $subCategory)
-                                    <li><a href="">{{$subCategory->name}}</a></li>
+                                    <li><a href="{{route('product-category', ['id' => $category->id])}}">{{$subCategory->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </li>

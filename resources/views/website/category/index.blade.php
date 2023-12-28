@@ -16,8 +16,7 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="javascript:void(0)">Shop</a></li>
-                        <li>Shop Grid</li>
+                        <li><a href="javascript:void(0)">Product Category</a></li>
                     </ul>
                 </div>
             </div>
@@ -43,32 +42,17 @@
 
                         <div class="single-widget">
                             <h3>All Categories</h3>
+                            @foreach ($categories as $category)
+
                             <ul class="list">
                                 <li>
-                                    <a href="product-grids.html">Computers & Accessories </a><span>(1138)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">Smartphones & Tablets</a><span>(2356)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">TV, Video & Audio</a><span>(420)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">Cameras, Photo & Video</a><span>(874)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">Headphones</a><span>(1239)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">Wearable Electronics</a><span>(340)</span>
-                                </li>
-                                <li>
-                                    <a href="product-grids.html">Printers & Ink</a><span>(512)</span>
+                                    <a href="{{route('product-category',['id' => $category->id])}}">{{$category->name}}</a><span></span>
                                 </li>
                             </ul>
+                            @endforeach
                         </div>
 
-
+{{--
                         <div class="single-widget range">
                             <h3>Price Range</h3>
                             <input type="range" class="form-range" name="range" step="1" min="100"
@@ -159,14 +143,14 @@
                                     Panasonic (74)
                                 </label>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
 
                 </div>
                 <div class="col-lg-9 col-12">
                     <div class="product-grids-head">
-                        <div class="product-grid-topbar">
+                        {{-- <div class="product-grid-topbar">
                             <div class="row align-items-center">
                                 <div class="col-lg-7 col-md-8 col-12">
                                     <div class="product-sorting">
@@ -197,7 +181,7 @@
                                     </nav>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active" id="nav-grid" role="tabpanel"
                                 aria-labelledby="nav-grid-tab">

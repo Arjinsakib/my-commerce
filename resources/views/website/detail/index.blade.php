@@ -16,8 +16,8 @@
                 <div class="col-lg-6 col-md-6 col-12">
                     <ul class="breadcrumb-nav">
                         <li><a href="index.html"><i class="lni lni-home"></i> Home</a></li>
-                        <li><a href="index.html">Shop</a></li>
-                        <li>Single Product</li>
+                        <li><a href="javascript:void(0)">Product Category</a></li>
+                        <li>Product Detail</li>
                     </ul>
                 </div>
             </div>
@@ -30,18 +30,15 @@
             <div class="top-area">
                 <div class="row align-items-center">
                     <div class="col-lg-6 col-md-12 col-12">
-                        <div class="product-images">
-                            <main id="gallery">
-                                <div class="main-img">
-                                    <img src="{{asset($product->image)}}" id="current" alt="#">
-                                </div>
-                                <div class="images">
-                                    @foreach ($product->otherImages as $otherImage)
-                                    <img src="{{asset($otherImage->image)}}" class="img" alt="#">
-                                    @endforeach
-                                </div>
-                            </main>
-                        </div>
+                        <div class="xzoom-container">
+                            <img class="xzoom" id="xzoom-default" src="{{asset($product->image)}}" xoriginal="{{asset($product->image)}}" />
+                            <div class="xzoom-thumbs">
+                                @foreach ($product->otherImages as $otherImage)
+                                <a href="{{asset($otherImage->image)}}"><img class="xzoom-gallery" width="80" src="{{asset($otherImage->image)}}"  xpreview="{{asset($otherImage->image)}}" title="The description goes here"></a>
+                                @endforeach
+                            </div>
+                          </div>
+
                     </div>
                     <div class="col-lg-6 col-md-12 col-12">
                         <div class="product-info">
@@ -98,6 +95,42 @@
                             <div class="info-body custom-responsive-margin">
                                 <h4>Details</h4>
                                 <p>{!! $product->long_description !!}</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="container mt-5">
+                                <h1>Customer Reviews</h1>
+
+                                <!-- Display existing reviews -->
+                                @foreach($reviews as $review)
+                                    <div class="card my-3">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ $review->customer->name }}</h5>
+                                            <p class="card-text">{{ $review->comment }}</p>
+                                            <p class="card-text">Rating: {{ $review->rating }}/5</p>
+                                        </div>
+                                    </div>
+                                @endforeach
+
+                                <!-- Add your review form -->
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Add Your Review</h5>
+                                        <form action="{{ url('/reviews') }}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="user_id" value="{{ auth()->id() }}">
+                                            <div class="mb-3">
+                                                <label for="comment" class="form-label">Comment</label>
+                                                <textarea class="form-control" id="comment" name="comment" required></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label for="rating" class="form-label">Rating (1-5)</label>
+                                                <input type="number" class="form-control" id="rating" name="rating" required min="1" max="5">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Submit Review</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 

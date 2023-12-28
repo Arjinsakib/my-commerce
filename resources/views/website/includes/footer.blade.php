@@ -64,16 +64,13 @@
 
                     </div>
                     <div class="col-lg-4 col-md-8 col-12">
-
                         <div class="single-footer f-link">
                             <h3>Shop Departments</h3>
+                            {{-- @foreach ($categories as $category)
                             <ul>
-                                <li><a href="javascript:void(0)">Computers & Accessories</a></li>
-                                <li><a href="javascript:void(0)">Smartphones & Tablets</a></li>
-                                <li><a href="javascript:void(0)">TV, Video & Audio</a></li>
-                                <li><a href="javascript:void(0)">Cameras, Photo & Video</a></li>
-                                <li><a href="javascript:void(0)">Headphones</a></li>
+                                <li><a href="javascript:void(0)">{{$category->name}}</a></li>
                             </ul>
+                            @endforeach --}}
                         </div>
 
                     </div>

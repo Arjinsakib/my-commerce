@@ -5,7 +5,60 @@
 @endsection
 
 @section('body')
-    <section class="hero-area">
+    {{-- <section class="hero-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-12 custom-padding-right">
+                    <div class="slider-head">
+
+                        <div class="hero-slider">
+                            @foreach ($products as $product)
+                            <div class="single-slider">
+                                <img style="padding-left: 450px" height="400px" width="100%" src="{{asset($product->image)}}" alt="#">
+                                <div class="content">
+                                    <h2 style="color: rgb(0, 0, 0)">{{$product->name}}</h2>
+                                    <p></p>
+                                    <h3 style="color: #000000"><span style="color: white">Now Only</span>{{$product->price}}</h3>
+                                    <div class="button">
+                                        <a href="{{route('product-detail',['id'=>$product->id])}}" class="btn">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                            @endforeach
+                       </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-12">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
+
+                            <div class="hero-small-banner">
+                                <div class="content">
+                                    <h2>iPhone 12 Pro Max</h2>
+                                    <h3>$259.99</h3>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="col-lg-12 col-md-6 col-12">
+                            <div class="hero-small-banner style2">
+                                <div class="content">
+                                    <h2>Weekly Sale!</h2>
+                                    <p></p>
+                                    <div class="button">
+                                        <a class="btn" href="#">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> --}}
+
+        <section class="hero-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-12 custom-padding-right">
@@ -51,24 +104,19 @@
                     <div class="row">
                         <div class="col-lg-12 col-md-6 col-12 md-custom-padding">
 
-                            <div class="hero-small-banner"
-                                style="background-image: url(https://www.apple.com/newsroom/images/product/iphone/standard/Apple_iphone13_design_09142021.jpg.og.jpg?202308281504);">
+                            <div class="hero-small-banner">
                                 <div class="content">
-                                    <h2>
-                                        <span style="color: black">New line required</span>
-                                        iPhone 12 Pro Max
-                                    </h2>
+                                    <h2>iPhone 12 Pro Max</h2>
                                     <h3>$259.99</h3>
                                 </div>
                             </div>
 
                         </div>
                         <div class="col-lg-12 col-md-6 col-12">
-
                             <div class="hero-small-banner style2">
                                 <div class="content">
                                     <h2>Weekly Sale!</h2>
-                                    <p>Saving up to 50% off all online store items this week.</p>
+                                    <p></p>
                                     <div class="button">
                                         <a class="btn" href="#">Shop Now</a>
                                     </div>
@@ -94,115 +142,29 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
+                @foreach ($categories as $category)
+                <div  class="col-lg-4 col-md-6 col-12">
 
                     <div class="single-category">
-                        <h3 class="heading">TV & Audios</h3>
+                        <h3 class="heading">{{$category->name}}</h3>
+                        @foreach ($category->subCategories as $subCategory)
+
                         <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
+                            <li><a href="#">{{$subCategory->name}}</a></li>
                         </ul>
+                        @endforeach
+                        @foreach ($products as $product)
+
                         <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-1.png"
-                                alt="#">
+                            <img width="250px" src=""
+                                alt="">
                         </div>
+                        @endforeach
                     </div>
-
                 </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-category">
-                        <h3 class="heading">Desktop & Laptop</h3>
-                        <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-2.png"
-                                alt="#">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-category">
-                        <h3 class="heading">Cctv Camera</h3>
-                        <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-3.png"
-                                alt="#">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-category">
-                        <h3 class="heading">Dslr Camera</h3>
-                        <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-4.png"
-                                alt="#">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-category">
-                        <h3 class="heading">Smart Phones</h3>
-                        <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-5.png"
-                                alt="#">
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-category">
-                        <h3 class="heading">Game Console</h3>
-                        <ul>
-                            <li><a href="#">Smart Television</a></li>
-                            <li><a href="#">QLED TV</a></li>
-                            <li><a href="#">Audios</a></li>
-                            <li><a href="#">Headphones</a></li>
-                            <li><a href="#">View All</a></li>
-                        </ul>
-                        <div class="images">
-                            <img src="{{ asset('/') }}website/assets/images/featured-categories/fetured-item-6.png"
-                                alt="#">
-                        </div>
-                    </div>
-
-                </div>
+                @endforeach
             </div>
+
         </div>
     </section>
 
@@ -635,74 +597,28 @@
     <section class="blog-section section">
         <div class="container">
             <div class="row">
-                <div class="col-12">
+                <div class="col-md-12">
                     <div class="section-title">
-                        <h2>Our Latest News</h2>
+                        <h2 style="text-align-last: center">Our Latest News</h2>
                         <p></p>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-4 col-md-6 col-12">
+            <div class="row justify-content-center">
+                <div class=" col-md-12">
 
-                    <div class="single-blog">
+                    <div class="single-blog ">
                         <div class="blog-img">
                             <a href="blog-single-sidebar.html">
-                                <img src="{{ asset('/') }}website/assets/images/blog/blog-1.jpg" alt="#">
+                                <img height="600px" width="100$" src="{{ asset('/') }}website/assets/images/ecommerce3-1 (1).jpg" alt="#">
                             </a>
                         </div>
                         <div class="blog-content">
                             <a class="category" href="javascript:void(0)">eCommerce</a>
                             <h4>
-                                <a href="blog-single-sidebar.html">What information is needed for shipping?</a>
+                                <a href="#">Our up coming feature is premium membership</a>
                             </h4>
                             <p></p>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a href="blog-single-sidebar.html">
-                                <img src="{{ asset('/') }}website/assets/images/blog/blog-2.jpg" alt="#">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <a class="category" href="javascript:void(0)">Gaming</a>
-                            <h4>
-                                <a href="blog-single-sidebar.html">Interesting fact about gaming consoles</a>
-                            </h4>
-                            <p></p>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Read More</a>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-6 col-12">
-
-                    <div class="single-blog">
-                        <div class="blog-img">
-                            <a href="blog-single-sidebar.html">
-                                <img src="{{ asset('/') }}website/assets/images/blog/blog-3.jpg" alt="#">
-                            </a>
-                        </div>
-                        <div class="blog-content">
-                            <a class="category" href="javascript:void(0)">Electronic</a>
-                            <h4>
-                                <a href="blog-single-sidebar.html">Electronics, instrumentation & control engineering
-                                </a>
-                            </h4>
-                            <p></p>
-                            <div class="button">
-                                <a href="javascript:void(0)" class="btn">Read More</a>
-                            </div>
                         </div>
                     </div>
 

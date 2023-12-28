@@ -1,8 +1,16 @@
+<script src="{{asset('/')}}website/assets/js/jquery.js"></script>
 <script src="{{asset('/')}}website/assets/js/bootstrap.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/tiny-slider.js"></script>
 <script src="{{asset('/')}}website/assets/js/glightbox.min.js"></script>
 <script src="{{asset('/')}}website/assets/js/main.js"></script>
+<script src="{{asset('/')}}website/assets/js/xzoom.min.js"></script>
+<script src="{{asset('/')}}website/assets/js/setup.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script type="text/javascript">
+
+
+
+
         // Hero Slider
         tns({
             container: '.hero-slider',

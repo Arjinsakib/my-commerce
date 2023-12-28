@@ -11,7 +11,9 @@
 <body>
     @include('website.includes.header')
 
-    @yield('body')
+    <div id="ajaxRes">
+        @yield('body')
+    </div>
 
     @include('website.includes.footer')
 

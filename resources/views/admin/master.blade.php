@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/') }}admin/assets/images/favicon.png">
-    <title>Elite Admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Easy Shop Dashboard</title>
     <!-- This page CSS -->
     <link href="{{ asset('/') }}admin/assets/node_modules/dropify/dist/css/dropify.min.css" rel="stylesheet">
     <link href="{{ asset('/') }}admin/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css"

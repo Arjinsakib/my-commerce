@@ -29,7 +29,11 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="card card-body">
-                    <h4 class="text-success">{{Session('notification')}}</h4>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>{{Session('notification')}}</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                      </div>
+                    {{-- <h4 class="text-success">{{Session('notification')}}</h4> --}}
                 </div>
             </div>
         </div>
