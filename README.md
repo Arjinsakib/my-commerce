@@ -1,1 +1,1 @@
-# my-commerce
+# easy-shop-my-commerce
